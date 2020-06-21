@@ -1,22 +1,18 @@
 package competitiveProgramming;
 
-import java.util.Scanner;
-
 public class SubsetSumProblem {
-    private static Scanner sc = new Scanner(System.in);
 
     public static boolean isSubsetSumTopDown(int sum, int[] arr, int n){
+        if (n == 0 && sum!=0)
+            return false;
+
         if (sum == 0)
             return true;
 
-        if (sum != 0 && n == 0)
-            return false;
-
-        if (arr[n-1] > sum)
+        if (sum < arr[n-1])
             return isSubsetSumTopDown(sum, arr, n-1);
-
         else
-            return (isSubsetSumTopDown(sum, arr, n-1) || isSubsetSumTopDown(sum - arr[n], arr, n - 1));
+            return isSubsetSumTopDown(sum, arr, n-1) || isSubsetSumTopDown(sum-arr[n-1], arr, n-1);
     }
 
     public static boolean isSubsetSumPresent(int[] arr, int sum){
@@ -50,17 +46,19 @@ public class SubsetSumProblem {
     }
 
     public static void main(String[] args) {
-        System.out.println("Enter Size of Array: ");
-        int n = sc.nextInt();
-        int arr[] = new int[n];
-        System.out.println("Enter Array Elements: ");
-        for(int i=0; i<n; i++){
-            arr[i] = sc.nextInt();
-        }
-        System.out.println("Enter sum: ");
-        int sum = sc.nextInt();
-
-        int N = n-1;
+//        System.out.println("Enter Size of Array: ");
+//        int n = sc.nextInt();
+//        int arr[] = new int[n];
+//        System.out.println("Enter Array Elements: ");
+//        for(int i=0; i<n; i++){
+//            arr[i] = sc.nextInt();
+//        }
+//        System.out.println("Enter sum: ");
+//        int sum = sc.nextInt();
+        int n = 4;
+        int[] arr = {1, 3, 6, 2};
+        int sum = 12;
+        int N = n;
 //        System.out.println(isSubsetSumPresent(arr, sum));
         System.out.println(isSubsetSumTopDown(sum, arr, N));
     }
